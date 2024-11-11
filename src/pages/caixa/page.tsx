@@ -46,24 +46,11 @@ export function CaixaDiario() {
       }
     };
     
-    React.useEffect(() => {
-      const fetchClientes = async () => {
-        try {
-          const caixaDiario = await CaixaRequest();
-          setCaixaDiario(caixaDiario || []);
-        } catch (error) {
-          console.error("Erro ao buscar clientes:", error);
-          alert("Ocorreu um erro ao buscar os clientes.");
-        }
-      };
-  
-      fetchClientes();
-    }, []);
 
 
 
     React.useEffect(() => {
-        const fetchClientes = async () => {
+        const fetchCaixa = async () => {
           try {
             const caixaData = await CaixaRequest();
             setCaixaDiario(caixaData || []);
@@ -73,7 +60,7 @@ export function CaixaDiario() {
           }
         };
     
-        fetchClientes();
+        fetchCaixa();
     }, []);
 
 
