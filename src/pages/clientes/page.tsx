@@ -28,6 +28,7 @@ import {
 import { Edit2Icon } from "lucide-react";
 import * as React from "react";
 import ClienteModal from './clienteModal/page';
+import { ListBulletIcon } from '@radix-ui/react-icons';
 
 export function Clientes() {
   const [clientes, setClientes] = React.useState<Cliente[]>([]);
@@ -123,15 +124,28 @@ export function Clientes() {
       cell: ({ row }) => row.getValue("endereco") || "N/A",
     },
     {
-      header: "Ações",
-      id: "actions",
+      header: "Contas",
+      id: "contas",
+      enableHiding: false,
+      cell: ({ row }) => (
+        <Button variant="outline" onClick={() => handleEditCliente(row.original)}>
+          <ListBulletIcon />
+        </Button>
+        
+      ),
+    },
+    {
+      header: "Editar",
+      id: "editar",
       enableHiding: false,
       cell: ({ row }) => (
         <Button variant="outline" onClick={() => handleEditCliente(row.original)}>
           <Edit2Icon />
         </Button>
+        
       ),
     },
+    
   ];
 
   const table = useReactTable({
