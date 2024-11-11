@@ -113,6 +113,7 @@ export default function CaixaModal({ isOpen, onClose, onSave, caixa }: CaixaModa
                     <Input
                     id="valorDinheiro"
                     type="number"
+                    disabled={caixa?.totalDiario? true: false }
                     value={valorDinheiro}
                     onChange={(e) => setDinheiro(e.target.valueAsNumber)}
                     placeholder="0,00"
@@ -162,7 +163,7 @@ export default function CaixaModal({ isOpen, onClose, onSave, caixa }: CaixaModa
                 <Button onClick={handleSave} disabled={caixa?.fechado}>
                   {caixa ? 'Salvar Alterações' : 'Abrir Caixa'}
                 </Button>
-                <Button onClick={handleFechar} disabled={caixa? false: true || caixa?.fechado}>
+                <Button onClick={handleFechar}  disabled={caixa?.fechado  }>
                   Fechar Caixa
                 </Button>
               </div>

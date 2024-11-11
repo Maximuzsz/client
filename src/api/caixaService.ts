@@ -75,11 +75,11 @@ export async function CaixaUpdate(caixa: Caixa) {
       valorFinal: caixa.valorPix,
       saida: caixa.saida,
       totalDiario:caixa.totalDiario,
-      empresa_id: JSON.parse(localStorage.getItem('empresa_id') || 'null'),
-      usuario_id: JSON.parse(localStorage.getItem('id') || 'null')
+      fechado: caixa.fechado
     };
 
     const token = JSON.parse(localStorage.getItem('token')|| 'null');
+    console.log('feschadno')
 
     const response = await fetch(`http://localhost:3000/caixa/update${caixa.caixa_id}`, {
       method: 'PUT',

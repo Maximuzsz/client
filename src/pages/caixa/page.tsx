@@ -1,4 +1,4 @@
-import { CaixaCreate, CaixaRequest } from "@/api/caixaService";
+import { CaixaCreate, CaixaRequest, CaixaUpdate } from "@/api/caixaService";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -31,9 +31,9 @@ export function CaixaDiario() {
     const handleSaveCaixa = async (caixaData: Caixa) => {
       try {
         if (selectedCaixa) {
+          await CaixaUpdate(caixaData);
         } else {
           await CaixaCreate(caixaData);
-         
         }
   
         // Recarrega a lista de clientes após salvar
