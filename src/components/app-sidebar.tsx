@@ -26,7 +26,7 @@ import {
     SidebarTrigger
 } from "@/components/ui/sidebar"
 import { useAuth } from "@/context/authProvider/useAuth"
-import { Calculator, PersonStanding } from "lucide-react"
+import { Calculator, FeatherIcon, PersonStanding } from "lucide-react"
 import { useNavigate } from "react-router-dom"
   
   // Dados de navegação e usuário
@@ -47,6 +47,11 @@ import { useNavigate } from "react-router-dom"
         url: "/caixa",
         icon: Calculator,
       },
+      {
+        title: "Produtos",
+        url: "/produtos",
+        icon: FeatherIcon,
+      },
     ],
   }
   
@@ -57,7 +62,7 @@ export default function Page({ children }) {
     const handleLogout = async (event) => {
       event.preventDefault();
       try {
-        await logout();
+        logout();
         navigate("/login");
       } catch (error) {
         console.error(error);

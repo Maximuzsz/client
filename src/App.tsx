@@ -6,6 +6,7 @@ import { CaixaDiario } from './pages/caixa/page';
 import Clientes from './pages/clientes/page';
 import Login from './pages/login/page';
 import Logon from './pages/logon/page';
+import Produtos from './pages/produtos/page';
 
 function App() {
   return (
@@ -34,6 +35,16 @@ function App() {
             <ProtectedRoutes>
               <Page>
                 <CaixaDiario />
+              </Page>
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/produtos"
+          element={
+            <ProtectedRoutes>
+              <Page>
+                <Produtos />
               </Page>
             </ProtectedRoutes>
           }
