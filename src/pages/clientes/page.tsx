@@ -30,6 +30,27 @@ import * as React from "react";
 import ClienteModal from './clienteModal/page';
 import { ListBulletIcon } from '@radix-ui/react-icons';
 
+
+function formatarCpfCnpj(valor : string) {
+  if (!valor) return "";
+
+  // Remove qualquer caractere não numérico
+  const numeros = valor.replace(/\D/g, "");
+
+  // Aplica máscara de CPF (###.###.###-##)
+  if (numeros.length === 11) {
+    return numeros.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  }
+
+  // Aplica máscara de CNPJ (##.###.###/####-##)
+  if (numeros.length === 14) {
+    return numeros.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
+  }
+
+  // Retorna o valor original se não tiver 11 ou 14 dígitos
+  return valor;
+}
+
 export function Clientes() {
   const [clientes, setClientes] = React.useState<Cliente[]>([]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -110,8 +131,10 @@ export function Clientes() {
     },
     {
       accessorKey: "cpf",
-      header: "CPF",
-      cell: ({ row }) => row.getValue("cpf"),
+      header: "CPF/CNPJ",
+      cell: ({ row }) => {
+        return formatarCpfCnpj(row.getValue("cpf") as string);
+      }
     },
     {
       accessorKey: "telefone",

@@ -87,51 +87,93 @@ export function CaixaDiario() {
         {
           accessorKey: "valorentrada",
           header: "Valor Inicial",
-          cell: ({ row }) => row.getValue("valorentrada"),
+          cell: ({ row }) => {
+            return new Intl.NumberFormat("pt-BR", {
+              style: "currency",
+              currency: "BRL"
+            }).format(row.getValue("valorentrada"));
+          }
         },
         {
           accessorKey: "dataLancamento",
           header: "Data",
-          cell: ({ row }) => row.getValue("dataLancamento"),
+          cell: ({ row }) =>{
+            return new Date(row.getValue("dataLancamento")).toLocaleDateString("pt-BR");
+          }
         },
         
         {
             accessorKey: "valorCartaoMaquina1",
             header: "Maquina Geo",
-            cell: ({ row }) => row.getValue("valorCartaoMaquina1"),
+            cell: ({ row }) =>  {
+              return new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+              }).format(row.getValue("valorCartaoMaquina1"));
+            },
         },
         {
             accessorKey: "valorCartaoMaquina2",
             header: "Maquina Leão",
-            cell: ({ row }) => row.getValue("valorCartaoMaquina2"),
+            cell: ({ row }) =>  {
+              return new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+              }).format(row.getValue("valorCartaoMaquina2"));
+            },
         },
         {
             accessorKey: "valorDinheiro",
             header: "Valor Dinheiro",
-            cell: ({ row }) => row.getValue("valorDinheiro"),
+            cell: ({ row }) =>  {
+              return new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+              }).format(row.getValue("valorDinheiro"));
+            },
         },
         {
           accessorKey: "valorPix",
           header: "Valor Pix",
-          cell: ({ row }) => row.getValue("valorPix"),
+          cell: ({ row }) =>  {
+            return new Intl.NumberFormat("pt-BR", {
+              style: "currency",
+              currency: "BRL"
+            }).format(row.getValue("valorPix"));
+          },
         },
         {
           accessorKey: "valorFinal",
           header: "Valor Final",
-          cell: ({ row }) => row.getValue("valorFinal"),
+          cell: ({ row }) => {
+            return new Intl.NumberFormat("pt-BR", {
+              style: "currency",
+              currency: "BRL"
+            }).format(row.getValue("valorFinal"));
+          },
         },
         {
           accessorKey: "saida",
           header: "Valor Saida",
-          cell: ({ row }) => row.getValue("saida"),
+          cell: ({ row }) =>  {
+            return new Intl.NumberFormat("pt-BR", {
+              style: "currency",
+              currency: "BRL"
+            }).format(row.getValue("saida"));
+          },
         },
         {
           accessorKey: "totalDiario",
           header: "TotalDiário",
-          cell: ({ row }) => row.getValue("totalDiario"),
+          cell: ({ row }) =>  {
+            return new Intl.NumberFormat("pt-BR", {
+              style: "currency",
+              currency: "BRL"
+            }).format(row.getValue("totalDiario"));
+          },
         },
         {
-          header: "Ações",
+          header: "Editar",
           id: "actions",
           enableHiding: false,
           cell: ({ row }) => (

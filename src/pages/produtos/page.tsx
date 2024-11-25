@@ -94,7 +94,12 @@ const Produtos: React.FC = () => {
         {
             accessorKey: "preco",
             header: "Preço",
-            cell: ({ row }) => row.getValue("preco"),
+            cell: ({ row }) =>  {
+              return new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+              }).format(row.getValue("preco"));
+            },
         },
         {
             accessorKey: "marca",
@@ -105,8 +110,8 @@ const Produtos: React.FC = () => {
             accessorKey: "status",
             header: "Status",
             cell: ({ row }) => {
-                const status = row.getValue("status");
-                return statusEnumMap[status]; // Mapear o status para o valor legível
+                const status = row.getValue("status") as string;
+                return statusEnumMap[status]  || ""; // Mapear o status para o valor legível
             },
         },
         {

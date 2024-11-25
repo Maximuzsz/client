@@ -7,6 +7,7 @@ import Clientes from './pages/clientes/page';
 import Login from './pages/login/page';
 import Logon from './pages/logon/page';
 import Produtos from './pages/produtos/page';
+import Contas from './pages/contas/page';
 
 function App() {
   return (
@@ -45,6 +46,16 @@ function App() {
             <ProtectedRoutes>
               <Page>
                 <Produtos />
+              </Page>
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/contas"
+          element={
+            <ProtectedRoutes>
+              <Page>
+                <Contas cliente_id='' />
               </Page>
             </ProtectedRoutes>
           }

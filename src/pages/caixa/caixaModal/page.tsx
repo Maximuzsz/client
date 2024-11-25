@@ -27,7 +27,7 @@ export default function CaixaModal({ isOpen, onClose, onSave, caixa }: CaixaModa
   useEffect(() => {
     if (caixa) {
       setCaixa_id(caixa.caixa_id || '');
-      setMaquina1(caixa.valorCartaoMaquina1 || 0);
+      setMaquina1( caixa.valorCartaoMaquina1 || 0);
       setMaquina2(caixa.valorCartaoMaquina2 || 0);
       setDinheiro(caixa.valorDinheiro || 0);
       setPix(caixa.valorPix || 0);
@@ -75,14 +75,14 @@ export default function CaixaModal({ isOpen, onClose, onSave, caixa }: CaixaModa
                 <div>
                     <Label htmlFor="valorentrada">Total Entrada</Label>
                     <Input
-                    id="valorentrada"
-                    type="number"
-                    disabled={caixa?.valorentrada? true: false }
-                    value={valorentrada}
-                    onChange={(e) => setEntrada(e.target.valueAsNumber)}
-                    placeholder="0,00"
-                    className="w-full"
-                    required
+                      id="valorentrada"
+                      type="number"
+                      disabled={caixa?.valorentrada? true: false }
+                      value={valorentrada}
+                      onChange={(e) => setEntrada(e.target.valueAsNumber)}
+                      placeholder="0,00"
+                      className="w-full"
+                      required
                     />
                 <div>
                 <Label htmlFor="valorCartaoMaquina1">Maquina Geo</Label>
