@@ -7,8 +7,8 @@ export async function LoginRequest(username: string, senha: string) {
             "userName": username,
             "password": senha
         }
-        console.log(data);
         const response = await api.post('/login',data)
+        console.log(response.status)
         return response.data;
     } catch (error) {
         alert(error);

@@ -1,22 +1,21 @@
-import { Caixa } from "@/types/caixa";
 import { Produto } from "@/types/produto";
+import { api } from "./api";
 
 export async function ProdutoRequest() {
     try {
         const token = JSON.parse(localStorage.getItem('token')|| 'null');
-        const response = await fetch('http://localhost:3000/produtos', {
-          method: 'GET',
+        const response = await api.get('/produtos', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
         });
   
-        if (response.ok) {
-          const produtos: Produto[] = await response.json();
+        if (response.status == 200) {
+          const produtos: Produto[] = await response.data;
           return produtos;
         } else {
-          console.error('Erro ao buscar produtos:', await response.text());
+          console.error('Erro ao buscar produtos:', response.statusText);
           return null;
         }
     } catch (error) {
@@ -39,17 +38,15 @@ export async function ProdutoCreate(produto: Produto) {
 
     const token = JSON.parse(localStorage.getItem('token')|| 'null');
     
-    const response = await fetch(`http://localhost:3000/produtos`, { // Altere a URL para o endpoint de criação
-      method: 'POST', // Usando POST para criar um novo cliente
+    const response = await api.post(`/produtos`, data,{
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
     });
 
-    if (response.ok) {
-      return await response.json(); // Retorna a resposta caso seja necessária
+    if (response.status == 200) {
+      return await response.data; // Retorna a resposta caso seja necessária
     } else {
       throw new Error('Erro ao cadastrar produto.');
     }
@@ -68,17 +65,15 @@ export async function ProdutoUpdate(produto: Produto) {
 
     const token = JSON.parse(localStorage.getItem('token')|| 'null');
 
-    const response = await fetch(`http://localhost:3000/produtos/update${produto.produto_id}`, {
-      method: 'PUT',
+    const response = await api.put(`/produtos/update${produto.produto_id}`, data, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
-    });
+    }); 
 
-    if (response.ok) {
-      return await response.json(); // Retorna a resposta caso seja necessária
+    if (response.status == 200) {
+      return await response.data; // Retorna a resposta caso seja necessária
     } else {
       throw new Error('Erro ao atualizar produto.');
     }

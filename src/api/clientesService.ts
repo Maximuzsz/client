@@ -1,21 +1,23 @@
 import { Cliente } from "@/types/clientes";
+import { api } from "./api";
 
 export async function ClienteRequest() {
     try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:3000/cliente', {
-          method: 'GET',
+      const token = JSON.parse(localStorage.getItem('token')|| 'null');
+      
+        const response = await api.get('/cliente',{
           headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYTJiZTM4My0wZTQzLTQ1YTEtYmZlMS01ZWMwMjhmMWU1NGYiLCJ1c2VyTmFtZSI6IlBhdWxvIiwibmFtZSI6IlBhdWxvIFNpbHZhIiwiaWF0IjoxNzMwMjk5OTk5LCJleHAiOjE3MzI4OTE5OTl9.LkaOzY7BRkKOp4WtEt-prFwFaoLbHfeWCnZgxVhnQuU',
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
         });
-  
-        if (response.ok) {
-          const clientes: Cliente[] = await response.json();
+        
+        if (response.status ==200) {
+          console.log(response)
+          const clientes: Cliente[] = await response.data;
           return clientes;
         } else {
-          console.error('Erro ao buscar clientes:', await response.text());
+          console.error('Erro ao buscar clientes:', await response.data());
           return null;
         }
     } catch (error) {
@@ -36,18 +38,16 @@ export async function ClienteUpdate(cliente: Cliente) {
       endereco: cliente.endereco,
     };
     console.log(cliente.cliente_id, data);
-
-    const response = await fetch(`http://localhost:3000/cliente/update${cliente.cliente_id}`, {
-      method: 'PUT',
+    const token = JSON.parse(localStorage.getItem('token')|| 'null');
+    const response = await api.put(`/cliente/update${cliente.cliente_id}`, data, {
       headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYTJiZTM4My0wZTQzLTQ1YTEtYmZlMS01ZWMwMjhmMWU1NGYiLCJ1c2VyTmFtZSI6IlBhdWxvIiwibmFtZSI6IlBhdWxvIFNpbHZhIiwiaWF0IjoxNzMwMjk5OTk5LCJleHAiOjE3MzI4OTE5OTl9.LkaOzY7BRkKOp4WtEt-prFwFaoLbHfeWCnZgxVhnQuU',
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
     });
-
-    if (response.ok) {
-      return await response.json(); // Retorna a resposta caso seja necessária
+    console.log(response.status, response.data)
+    if (response.status == 200) {
+      return await response.data; // Retorna a resposta caso seja necessária
     } else {
       throw new Error('Erro ao atualizar cliente.');
     }
@@ -69,18 +69,18 @@ export async function ClienteCreate(cliente: Cliente) {
       endereco: cliente.endereco,
       usuario_id:JSON.parse(localStorage.getItem('id') || 'null')
     };
-    
-    const response = await fetch(`http://localhost:3000/cliente`, { // Altere a URL para o endpoint de criação
-      method: 'POST', // Usando POST para criar um novo cliente
+    const token = JSON.parse(localStorage.getItem('token')|| 'null');
+    console.log(token)
+    const response = await api.post(`/cliente`, {
       headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxYTJiZTM4My0wZTQzLTQ1YTEtYmZlMS01ZWMwMjhmMWU1NGYiLCJ1c2VyTmFtZSI6IlBhdWxvIiwibmFtZSI6IlBhdWxvIFNpbHZhIiwiaWF0IjoxNzMwMjk5OTk5LCJleHAiOjE3MzI4OTE5OTl9.LkaOzY7BRkKOp4WtEt-prFwFaoLbHfeWCnZgxVhnQuU',
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      data
     });
 
-    if (response.ok) {
-      return await response.json(); // Retorna a resposta caso seja necessária
+    if (response.status == 200) {
+      return await response.data; // Retorna a resposta caso seja necessária
     } else {
       throw new Error('Erro ao cadastrar cliente.');
     }

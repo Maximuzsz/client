@@ -1,21 +1,21 @@
 import { Caixa } from "@/types/caixa";
+import { api } from "./api";
 
 export async function CaixaRequest() {
     try {
         const token = JSON.parse(localStorage.getItem('token')|| 'null');
-        const response = await fetch('http://localhost:3000/caixa', {
-          method: 'GET',
+        const response = await api.get('/caixa', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
         });
   
-        if (response.ok) {
-          const caixa: Caixa[] = await response.json();
+        if (response.status ==200) {
+          const caixa: Caixa[] = await response.data;
           return caixa;
         } else {
-          console.error('Erro ao buscar valor do caixa:', await response.text());
+          console.error('Erro ao buscar valor do caixa:',  response.status);
           return null;
         }
     } catch (error) {
@@ -44,17 +44,15 @@ export async function CaixaCreate(caixa: Caixa) {
 
     const token = JSON.parse(localStorage.getItem('token')|| 'null');
     
-    const response = await fetch(`http://localhost:3000/caixa`, { // Altere a URL para o endpoint de criação
-      method: 'POST', // Usando POST para criar um novo cliente
+    const response = await api.post(`/caixa`,  data, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
     });
 
-    if (response.ok) {
-      return await response.json(); // Retorna a resposta caso seja necessária
+    if (response.data) {
+      return await response.data; // Retorna a resposta caso seja necessária
     } else {
       throw new Error('Erro ao cadastrar caixa.');
     }
@@ -81,17 +79,15 @@ export async function CaixaUpdate(caixa: Caixa) {
     const token = JSON.parse(localStorage.getItem('token')|| 'null');
     console.log('feschadno')
 
-    const response = await fetch(`http://localhost:3000/caixa/update${caixa.caixa_id}`, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+      const response = await api.put(`/caixa/update${caixa.caixa_id}`, data, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
 
-    if (response.ok) {
-      return await response.json(); // Retorna a resposta caso seja necessária
+    if (response.data) {
+      return await response.data // Retorna a resposta caso seja necessária
     } else {
       throw new Error('Erro ao atualizar caixa.');
     }
