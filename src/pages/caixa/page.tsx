@@ -87,18 +87,32 @@ export function CaixaDiario() {
         {
           accessorKey: "valorentrada",
           header: "Valor Inicial",
-          cell: ({ row }) => row.getValue("valorentrada"),
+          cell: ({ row }) =>{
+            const valor = row.getValue("valorentrada");
+            return Number(valor).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            });
+          }
         },
         {
           accessorKey: "dataLancamento",
           header: "Data",
-          cell: ({ row }) => row.getValue("dataLancamento"),
+          cell: ({ row }) => {
+            const data = row.getValue("dataLancamento");
+            return new Date(data).toLocaleDateString("pt-BR"); // Formato brasileiro: dd/mm/aaaa
+          },
         },
-        
         {
-            accessorKey: "valorCartaoMaquina1",
-            header: "Maquina Geo",
-            cell: ({ row }) => row.getValue("valorCartaoMaquina1"),
+          accessorKey: "valorCartaoMaquina1",
+          header: "Maquina Geo",
+          cell: ({ row }) => {
+            const valor = row.getValue("valorCartaoMaquina1");
+            return Number(valor).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            });
+          },
         },
         {
             accessorKey: "valorCartaoMaquina2",

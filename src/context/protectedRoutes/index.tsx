@@ -1,12 +1,7 @@
-
-import { useAuth } from "../authProvider/useAuth";
-
-
-
 export const ProtectedRoutes = ({ children }: {children: JSX.Element}) => {
-    const auth = useAuth();
+    const token = localStorage.getItem('token');
 
-    if(!auth.token) {
+    if(!token) {
         return(
             <h1>Você não tem acesso</h1>
         )

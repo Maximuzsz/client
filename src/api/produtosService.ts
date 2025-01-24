@@ -11,7 +11,7 @@ export async function ProdutoRequest() {
           },
         });
   
-        if (response.status == 200) {
+        if (response.status == 200 || response.status ==201) {
           const produtos: Produto[] = await response.data;
           return produtos;
         } else {
@@ -44,8 +44,8 @@ export async function ProdutoCreate(produto: Produto) {
         'Content-Type': 'application/json',
       },
     });
-
-    if (response.status == 200) {
+    console.log(response);
+    if (response.status == 200 || response.status ==201) {
       return await response.data; // Retorna a resposta caso seja necessária
     } else {
       throw new Error('Erro ao cadastrar produto.');
@@ -60,6 +60,7 @@ export async function ProdutoUpdate(produto: Produto) {
   try {
     const data = {
       preco: produto.preco,
+      nome_produto: produto.nome_produto,
       status: produto.status
     };
 
@@ -72,7 +73,7 @@ export async function ProdutoUpdate(produto: Produto) {
       },
     }); 
 
-    if (response.status == 200) {
+    if (response.status == 200 || response.status ==201) {
       return await response.data; // Retorna a resposta caso seja necessária
     } else {
       throw new Error('Erro ao atualizar produto.');
