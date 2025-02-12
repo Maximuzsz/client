@@ -1,4 +1,4 @@
-import { ProdutoCreate, ProdutoRequest, ProdutoUpdate } from "@/api/produtosService";
+import { ProdutoRequest } from "@/api/produtosService";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -29,23 +29,6 @@ const Produtos: React.FC = () => {
     const [ filter, setfilter] = useState('');
 
 
-    const handleSaveProduto = async (produtoData: Produto) => {
-        try {
-          if (selectedProduto) {
-            await ProdutoUpdate(produtoData);
-          } else {
-            await ProdutoCreate(produtoData);
-          }
-    
-          // Recarrega a lista de produtos após salvar
-          const produtosData = await ProdutoRequest();
-          setProduto(produtosData || []);
-          setIsModalOpen(false); // Fecha a modal após salvar
-        } catch (error) {
-          console.error("Erro ao salvar produto:", error);
-          alert("Ocorreu um erro ao salvar o produto.");
-        }
-      };
 
     React.useEffect(() => {
         const fetchProdutos = async () => {
@@ -94,7 +77,13 @@ const Produtos: React.FC = () => {
         {
             accessorKey: "preco",
             header: "Preço",
-            cell: ({ row }) => row.getValue("preco"),
+            cell: ({ row }) => {
+              const valor = row.getValue("preco");
+              return Number(valor).toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              });
+            },
         },
         {
             accessorKey: "marca",
@@ -160,7 +149,7 @@ const Produtos: React.FC = () => {
                     <option value="marca">Marca</option>
                 </select>
                 <Input
-                    placeholder="Filtrar por status..."
+                    placeholder="Filtrar por ..."
                     className="max-w-sm"
                     value={(table.getColumn(filter)?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
@@ -213,7 +202,6 @@ const Produtos: React.FC = () => {
             <ProdutoModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                onSave={handleSaveProduto}
                 produto={selectedProduto}
             />
         </div>

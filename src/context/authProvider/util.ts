@@ -6,13 +6,13 @@ export function setUserLocalStorage(user: IUser | null) {
     if (user) {
         localStorage.setItem('token', JSON.stringify(user.token));
         localStorage.setItem('id', JSON.stringify(user.id));
-        localStorage.setItem('name', JSON.stringify(user.username));
+        localStorage.setItem('username', JSON.stringify(user.username));
         localStorage.setItem('empresa_id', JSON.stringify(user.empresa_id));
     } else {
         // Limpa os itens relacionados ao usuário no localStorage se user for null
         localStorage.removeItem('token');
         localStorage.removeItem('id');
-        localStorage.removeItem('name');
+        localStorage.removeItem('username');
         localStorage.removeItem('empresa_id');
     }
 }
@@ -35,9 +35,7 @@ export async function LoginRequest(username: string, senha: string) {
             "userName": username,
             "password": senha
         }
-        console.log(data)
         const response = await api.post('/login',data)
-        console.log(response.data)
         return response.data;
     } catch (error) {
         alert(error);

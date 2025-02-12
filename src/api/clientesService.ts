@@ -13,7 +13,6 @@ export async function ClienteRequest() {
         });
         
         if (response.status ==200) {
-          console.log(response)
           const clientes: Cliente[] = await response.data;
           return clientes;
         } else {
@@ -37,7 +36,6 @@ export async function ClienteUpdate(cliente: Cliente) {
       telefone: cliente.telefone,
       endereco: cliente.endereco,
     };
-    console.log(cliente.cliente_id, data);
     const token = JSON.parse(localStorage.getItem('token')|| 'null');
     const response = await api.put(`/cliente/update${cliente.cliente_id}`, data, {
       headers: {
@@ -45,14 +43,13 @@ export async function ClienteUpdate(cliente: Cliente) {
         'Content-Type': 'application/json',
       },
     });
-    console.log(response.status, response.data)
     if (response.status == 200) {
       return await response.data; // Retorna a resposta caso seja necessária
     } else {
       throw new Error('Erro ao atualizar cliente.');
     }
   } catch (error) {
-    console.error('Erro ao atualizar cliente:', error);
+    alert(error)
     throw new Error('Ocorreu um erro ao atualizar o cliente. Por favor, tente novamente mais tarde.');
   }
 }
@@ -61,7 +58,6 @@ export async function ClienteUpdate(cliente: Cliente) {
 
 export async function ClienteCreate(cliente: Cliente) {
   try {
-    console.log(cliente);
     const data = {
       nome: cliente.nome,
       cpf: cliente.cpf,
@@ -70,21 +66,20 @@ export async function ClienteCreate(cliente: Cliente) {
       usuario_id:JSON.parse(localStorage.getItem('id') || 'null')
     };
     const token = JSON.parse(localStorage.getItem('token')|| 'null');
-    console.log(token)
-    const response = await api.post(`/cliente`, {
+    const response = await api.post('/cliente',  data,{
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      data
     });
 
-    if (response.status == 200) {
+    if (response.status == 200 || response.status == 201) {
       return await response.data; // Retorna a resposta caso seja necessária
     } else {
       throw new Error('Erro ao cadastrar cliente.');
     }
   } catch (error) {
+    alert(error)
     throw new Error('Ocorreu um erro ao cadastrar o cliente. Por favor, tente novamente mais tarde.');
   }
 }

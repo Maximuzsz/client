@@ -36,6 +36,7 @@ const Login: React.FC = () => {
             await authenticate(username, password);
             navigate("/clientes");
         } catch (error) {
+            alert(error)
             setMensagem("Erro ao realizar Login");
             setShowError(true);
             setTimeout(() => {

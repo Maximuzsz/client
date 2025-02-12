@@ -7,11 +7,11 @@ import Clientes from './pages/clientes/page';
 import Login from './pages/login/page';
 import Logon from './pages/logon/page';
 import Produtos from './pages/produtos/page';
+import PedidosCliente from './pages/pedidos/page';
 
 function App() {
   return (
     <div>
-
       {/* Rotas */}
       <Routes>
         <Route path="/" element={<Login />} />
@@ -45,6 +45,26 @@ function App() {
             <ProtectedRoutes>
               <Page>
                 <Produtos />
+              </Page>
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/pedidos/:clienteId" 
+          element={
+            <ProtectedRoutes>
+              <Page>
+                <PedidosCliente  />
+              </Page>
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/clientes/:clienteId/novo-pedido"
+          element={
+            <ProtectedRoutes>
+              <Page>
+                <PedidosCliente  />
               </Page>
             </ProtectedRoutes>
           }

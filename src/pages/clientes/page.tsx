@@ -29,6 +29,7 @@ import { Edit2Icon } from "lucide-react";
 import * as React from "react";
 import ClienteModal from './clienteModal/page';
 import { ListBulletIcon } from '@radix-ui/react-icons';
+import { useNavigate } from 'react-router-dom';
 
 export function Clientes() {
   const [clientes, setClientes] = React.useState<Cliente[]>([]);
@@ -38,6 +39,11 @@ export function Clientes() {
   const [rowSelection, setRowSelection] = React.useState({});
   const [selectedCliente, setSelectedCliente] = React.useState<Cliente | null>(null);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const navigate = useNavigate();
+
+  const handleViewPedidos = (clienteId: string) => {
+    navigate(`/pedidos/${clienteId}`);
+  };
 
   React.useEffect(() => {
     const fetchClientes = async () => {
@@ -128,7 +134,7 @@ export function Clientes() {
       id: "contas",
       enableHiding: false,
       cell: ({ row }) => (
-        <Button variant="outline" onClick={() => handleEditCliente(row.original)}>
+        <Button variant="outline" onClick={() => handleViewPedidos(row.original.cliente_id || '')}>
           <ListBulletIcon />
         </Button>
         
