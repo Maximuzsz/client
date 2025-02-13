@@ -1,10 +1,22 @@
-export const ProtectedRoutes = ({ children }: {children: JSX.Element}) => {
-    const token = localStorage.getItem('token');
+import { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 
-    if(!token) {
-        return(
-            <h1>Você não tem acesso</h1>
-        )
+export const ProtectedRoutes = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Verifica a autenticação apenas no navegador
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      setIsAuthenticated(!!token);
+      setIsLoading(false);
     }
-    return children;
-}   
+  }, []);
+
+  if (isLoading) {
+    return <div>Carregando...</div>; // Ou um componente de loading
+  }
+
+  return isAuthenticated ? children : <Navigate to="/login" />;
+};

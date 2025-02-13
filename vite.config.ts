@@ -1,26 +1,15 @@
-import path from "path"
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path'; // Importe o módulo 'path' para lidar com caminhos
 
 export default defineConfig({
   plugins: [react()],
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            return 'vendor'; // Separa dependências externas em um chunk "vendor"
-          }
-          if (id.includes('components')) {
-            return 'components'; // Separa os componentes em outro chunk
-          }
-        },
-      },
-    },
-  },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      '@': path.resolve(__dirname, './src'), // Define o alias '@' para a pasta 'src'
     },
   },
-})
+  build: {
+    outDir: 'dist',
+  },
+});
