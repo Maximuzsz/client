@@ -57,6 +57,7 @@ export async function CaixaCreate(caixa: Caixa) {
       throw new Error('Erro ao cadastrar caixa.');
     }
   } catch (error) {
+    alert(error)
     throw new Error('Ocorreu um erro ao cadastrar o caixa. Por favor, tente novamente mais tarde.');
   }
 }

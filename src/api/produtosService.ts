@@ -51,6 +51,7 @@ export async function ProdutoCreate(produto: Produto) {
       throw new Error('Erro ao cadastrar produto.');
     }
   } catch (error) {
+    alert(error)
     throw new Error('Ocorreu um erro ao cadastrar o produto. Por favor, tente novamente mais tarde.');
   }
 }
