@@ -84,7 +84,7 @@ const Login: React.FC = () => {
                 </CardContent>
                 <CardFooter className="text-center">
                     <p className="text-sm text-gray-600">
-                        Ainda não tem uma conta? <a href="/logon" className="text-blue-500 hover:underline">Registre-se</a>
+                        Ainda não tem uma conta? <a onClick={() =>(navigate(`/logon`))} className="text-blue-500 hover:underline">Registre-se</a>
                     </p>
                 </CardFooter>
             </Card>

@@ -60,6 +60,7 @@ const Logon: React.FC = () => {
         setShowSuccess(false);
       }, 5000);
     } catch (error) {
+      alert(error)
       setMensagem("Erro ao realizar cadastro:")
       setShowError(true);
 
