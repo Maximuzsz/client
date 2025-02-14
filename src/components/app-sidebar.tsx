@@ -69,8 +69,7 @@ export default function Page({ children }) {
       console.error(error);
     }
   }
-  const handleNavigation = async (event, page:string) => {
-    event.preventDefault();
+  const handleNavigation = async (page:string) => {
     try {
       navigate(`${page}`);
     } catch (error) {
@@ -108,7 +107,7 @@ export default function Page({ children }) {
               {data.navMain.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild >
-                    <a onClick ={()=>(handleLogout(item.url))}>
+                    <a onClick ={()=>(handleNavigation(item.url))}>
                       <item.icon />
                       <span>{item.title}</span>
                     </a>
