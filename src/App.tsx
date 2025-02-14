@@ -32,11 +32,9 @@ function App() {
         <Route
           path="/caixa"
           element={
-            <ProtectedRoutes>
               <Page>
                 <CaixaDiario />
               </Page>
-            </ProtectedRoutes>
           }
         />
         <Route
