@@ -1,3 +1,4 @@
+import { ClienteCreate, ClienteUpdate } from '@/api/clientesService';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -8,11 +9,10 @@ import { useEffect, useState } from 'react';
 interface ClienteModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (clienteData: Cliente) => void;
   cliente?: Cliente | null;
 }
 
-const ClienteModal = ({ isOpen, onClose, onSave, cliente }: ClienteModalProps) => {
+const ClienteModal = ({ isOpen, onClose, cliente }: ClienteModalProps) => {
   const [cliente_id, setCliente_id] = useState('');
   const [nome, setNome] = useState('');
   const [cpf, setCpf] = useState('');
@@ -35,9 +35,25 @@ const ClienteModal = ({ isOpen, onClose, onSave, cliente }: ClienteModalProps) =
     }
   }, [cliente]);
 
+  const handleSaveCliente = async (clienteData: Cliente) => {
+    try {
+      if (clienteData.cliente_id) {
+        // Se um cliente está sendo editado, atualiza o cliente
+        await ClienteUpdate(clienteData);
+      } else {
+        await ClienteCreate(clienteData);
+       
+      }
+    } catch (error) {
+      console.error("Erro ao salvar cliente:", error);
+      alert("Ocorreu um erro ao salvar o cliente.");
+    }
+  };
+
+
   const handleSave = () => {
     const clienteData: Cliente = { cliente_id, nome, cpf, telefone, endereco };
-    onSave(clienteData);
+    handleSaveCliente(clienteData)
     onClose(); // Fecha a modal após salvar
   };
 

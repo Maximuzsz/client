@@ -1,6 +1,6 @@
 "use client";
 
-import { ClienteCreate, ClienteRequest, ClienteUpdate } from '@/api/clientesService';
+import { ClienteRequest } from '@/api/clientesService';
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -13,6 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Cliente } from '@/types/clientes';
+import { ListBulletIcon } from '@radix-ui/react-icons';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -27,9 +28,8 @@ import {
 } from "@tanstack/react-table";
 import { Edit2Icon } from "lucide-react";
 import * as React from "react";
-import ClienteModal from './clienteModal/page';
-import { ListBulletIcon } from '@radix-ui/react-icons';
 import { useNavigate } from 'react-router-dom';
+import ClienteModal from './clienteModal/page';
 
 export function Clientes() {
   const [clientes, setClientes] = React.useState<Cliente[]>([]);
@@ -67,26 +67,6 @@ export function Clientes() {
   const handleEditCliente = (cliente: Cliente) => {
     setSelectedCliente(cliente);
     setIsModalOpen(true);
-  };
-
-  const handleSaveCliente = async (clienteData: Cliente) => {
-    try {
-      if (selectedCliente) {
-        // Se um cliente está sendo editado, atualiza o cliente
-        await ClienteUpdate(clienteData);
-      } else {
-        await ClienteCreate(clienteData);
-       
-      }
-
-      // Recarrega a lista de clientes após salvar
-      const clientesData = await ClienteRequest();
-      setClientes(clientesData || []);
-      setIsModalOpen(false); // Fecha a modal após salvar
-    } catch (error) {
-      console.error("Erro ao salvar cliente:", error);
-      alert("Ocorreu um erro ao salvar o cliente.");
-    }
   };
 
   const columns: ColumnDef<Cliente>[] = [
@@ -256,7 +236,6 @@ export function Clientes() {
       <ClienteModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSave={handleSaveCliente}
         cliente={selectedCliente}
       />
       
