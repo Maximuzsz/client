@@ -107,8 +107,8 @@ export default function Page({ children }) {
             <SidebarMenu>
               {data.navMain.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild onClick ={()=>(handleLogout(item.url))}>
-                    <a>
+                  <SidebarMenuButton asChild >
+                    <a onClick ={()=>(handleLogout(item.url))}>
                       <item.icon />
                       <span>{item.title}</span>
                     </a>
