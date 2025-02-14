@@ -12,6 +12,7 @@ import { UserCreate } from '@/api/authService';
 import { User } from '@/types/user';
 import { SuccessAlert } from '@/components/alert-sucess';
 import { ErrorAlert } from '@/components/alert-error';
+import { useNavigate } from 'react-router-dom';
 
 const Logon: React.FC = () => {
   const [name, setName] = useState('');
@@ -22,6 +23,7 @@ const Logon: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [mensagem, setMensagem] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEmpresas = async () => {
@@ -133,7 +135,7 @@ const Logon: React.FC = () => {
         </CardContent>
         <CardFooter className="text-center">
           <p className="text-sm text-gray-600">
-            Já possui uma conta? <a href="/login" className="text-blue-500 hover:underline">Entre</a>
+            Já possui uma conta? <a onClick={() =>(navigate('/login'))} className="text-blue-500 hover:underline">Entre</a>
           </p>
         </CardFooter>
       </Card>
