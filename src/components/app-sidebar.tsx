@@ -70,6 +70,10 @@ export default function Page({ children }) {
     }
   }
 
+  const handleNavigate = (page: string) => {
+    navigate(`/${page}`);
+  };
+
   return (
     <SidebarProvider>
       <Sidebar variant="inset">
@@ -100,7 +104,7 @@ export default function Page({ children }) {
               {data.navMain.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <a onClick={() =>(handleNavigate(item.url))}>
                       <item.icon />
                       <span>{item.title}</span>
                     </a>
@@ -126,7 +130,6 @@ export default function Page({ children }) {
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-semibold">{data.user.name}</span>
-                    <span className="truncate text-xs">{data.user.name}</span>
                   </div>
                   <ChevronsUpDown className="ml-auto size-4" />
                 </SidebarMenuButton>
