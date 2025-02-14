@@ -70,10 +70,6 @@ export default function Page({ children }) {
     }
   }
 
-  const handleNavigate = (page: string) => {
-    navigate(`/${page}`);
-  };
-
   return (
     <SidebarProvider>
       <Sidebar variant="inset">
@@ -104,7 +100,7 @@ export default function Page({ children }) {
               {data.navMain.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a onClick={() =>(handleNavigate(item.url))}>
+                    <a href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
                     </a>
